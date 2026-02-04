@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Friendship Goal 🤝</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+    }
+
+    body {
+      height: 100vh;
+      overflow: hidden;
+      background: linear-gradient(135deg, #ff5fa2, #ff9a9e);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+    }
+
+    /* Floating hearts */
+    .heart {
+      position: fixed;
+      font-size: 24px;
+      animation: floatUp 6s linear infinite;
+      opacity: 0.8;
+      pointer-events: none;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(100vh); opacity: 0; }
+      20% { opacity: 1; }
+      100% { transform: translateY(-10vh); opacity: 0; }
+    }
+
+    .container {
+      text-align: center;
+      padding: 20px;
+      z-index: 10;
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 900;
+      margin-bottom: 30px;
+      text-shadow: 2px 2px 8px #000;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      position: relative;
+    }
+
+    button {
+      font-size: 1.2rem;
+      padding: 15px 25px;
+      border-radius: 12px;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    #yesBtn {
+      background: #00ff99;
+      color: #000;
+      z-index: 5;
+    }
+
+    /* 🔥 FIXED NO BUTTON */
+    #noBtn {
+      background: #ff0033;
+      color: #fff;
+      position: fixed; /* IMPORTANT */
+      left: 50%;
+      top: 60%;
+      transform: translate(-50%, -50%);
+      z-index: 999;
+    }
+
+    /* Result screen */
+    .result {
+      display: none;
+      text-align: center;
+    }
+
+    .result h2 {
+      font-size: 2rem;
+      font-weight: 900;
+      margin-bottom: 20px;
+      text-shadow: 3px 3px 10px black;
+    }
+
+    .graffiti {
+      position: fixed;
+      width: 80px;
+      height: 80px;
+      background: radial-gradient(circle, #ff0, #f0f, #0ff);
+      opacity: 0.7;
+      transform: rotate(45deg);
+      pointer-events: none;
+    }
+
+    img {
+      width: 200px;
+      max-width: 80%;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Floating Hearts -->
+  <script>
+    for (let i = 0; i < 30; i++) {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.innerText = "💖";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = 3 + Math.random() * 4 + "s";
+      heart.style.fontSize = 20 + Math.random() * 20 + "px";
+      document.body.appendChild(heart);
+    }
+  </script>
+
+  <div class="container" id="main">
+    <h1>PREETI 💕<br>WILL YOU BE MY FRIEND?</h1>
+
+    <div class="buttons">
+      <button id="yesBtn">YES 🤝</button>
+    </div>
+  </div>
+
+  <!-- NO button is outside container so it can roam free 😈 -->
+  <button id="noBtn">NO 😈</button>
+
+  <div class="container result" id="result">
+    <h2>I KNEW THAT NOW WE ARE CHUDY BUDDY .😉🔥</h2>
+    <img src="https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif" alt="dancing gif">
+  </div>
+
+  <script>
+    const noBtn = document.getElementById("noBtn");
+    const yesBtn = document.getElementById("yesBtn");
+    const main = document.getElementById("main");
+    const result = document.getElementById("result");
+
+    function moveNoButton() {
+      const btnWidth = noBtn.offsetWidth;
+      const btnHeight = noBtn.offsetHeight;
+      const padding = 20;
+
+      const maxX = window.innerWidth - btnWidth - padding;
+      const maxY = window.innerHeight - btnHeight - padding;
+
+      const x = Math.random() * maxX + padding;
+      const y = Math.random() * maxY + padding;
+
+      noBtn.style.left = x + "px";
+      noBtn.style.top = y + "px";
+      noBtn.style.transform = "none";
+    }
+
+    // Dodge everything 😈
+    noBtn.addEventListener("mouseenter", moveNoButton);
+    noBtn.addEventListener("touchstart", (e) => {
+      e.preventDefault();
+      moveNoButton();
+    });
+    noBtn.addEventListener("pointerdown", (e) => {
+      e.preventDefault();
+      moveNoButton();
+    });
+
+    // YES clicked 💘
+    yesBtn.onclick = () => {
+      main.style.display = "none";
+      noBtn.style.display = "none";
+      result.style.display = "block";
+
+      // graffiti chaos
+      for (let i = 0; i < 25; i++) {
+        const g = document.createElement("div");
+        g.className = "graffiti";
+        g.style.left = Math.random() * 100 + "vw";
+        g.style.top = Math.random() * 100 + "vh";
+        document.body.appendChild(g);
+      }
+    };
+
+    // Initial escape
+    setTimeout(moveNoButton, 300);
+  </script>
+
+</body>
+</html>
